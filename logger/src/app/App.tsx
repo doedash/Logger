@@ -1,9 +1,11 @@
 import './App.scss';
+import Editor from './Editor';
 
 function App() {
   return (
     <div className="App">
-      Hello
+      <span>Notepad</span>
+      <Editor />
     </div>
   );
 }
