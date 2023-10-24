@@ -7,8 +7,6 @@ function Editor() {
     const [press, setPress] = useState({ key: "" });
     const [caret, setCaret] = useState(0);
 
-    const keyUp = useRef((key: string) => { })
-
     useEffect(() => {
         document.addEventListener('keyup', (e) => {
             console.log(e.key)
@@ -22,17 +20,34 @@ function Editor() {
 
         }
         else if (press.key == "Backspace") {
-            setValue(value.substring(0, value.length - 1))
+            setValue(value.substring(0, caret - 2) + value.substring(caret - 1))
+            setCaret(caret - 1)
         }
-        else
-            setValue(value + press.key)
+        else if (press.key == "ArrowLeft") {
+            setCaret(caret - 1)
+        }
+        else if (press.key == "ArrowRight") {
+            setCaret(caret + 1)
+        }
+        else if (press.key == " ") {
+            setValue(value.substring(0, caret - 1) + "\xa0" + value.substring(caret - 1))
+            setCaret(caret + 1)
+        }
+        else {
+            setValue(value.substring(0, caret - 1) + press.key + value.substring(caret - 1))
+            setCaret(caret + 1)
+        }
         console.log("set");
 
     }, [press])
 
     return (
         <div className="Editor">
-            <span>{value}</span>
+            <span>{value.substring(0, caret - 1)}</span>
+            <span className='caret'>
+                <span className="design"></span>
+            </span>
+            <span>{value.substring(caret - 1, value.length)}</span>
         </div>
     );
 }

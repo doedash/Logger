@@ -2,3 +2,13 @@
     border: 1px solid black;
     padding: 10px;
 }
+
+.caret {
+    position: relative;
+}
+
+.design {
+    position: absolute;
+    height: 100%;
+    border-left: 1px solid #222;
+}
